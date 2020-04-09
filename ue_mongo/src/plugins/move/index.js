@@ -14,5 +14,11 @@ export default {
       .post(`${base}/moveByRule?newDb=${newdbName}&newCl=${newclName}&oldDb=${olddbName}&oldCl=${oldclName}&ruleDb=${ruleDbName}&ruleCl=${ruleClName}&markResultColumn=import_status&transforms=${transforms}`, docIds)
       .then(rst => rst.data.result)
       .catch(err => Promise.reject(err))
-  }
+	},
+	export(olddbName, oldclName, ruleDbName, ruleClName) {
+		return TmsAxios.ins('mongodb-api')
+			.get(`${base}/exportDocsByRule?db=${olddbName}&cl=${oldclName}&ruleDb=${ruleDbName}&ruleCl=${ruleClName}`)
+			.then(rst => rst.data.result)
+			.catch(err => Promise.reject(err))
+	}
 }
