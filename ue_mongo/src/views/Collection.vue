@@ -2,7 +2,7 @@
   <tms-frame class="tmw-document" :display="{ header: true, footer: false, right: true }" :leftWidth="'20%'">
     <template v-slot:header>
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ name: 'home' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ name: 'database', params: { dbName: dbName } }">{{dbName}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{clName}}</el-breadcrumb-item>
       </el-breadcrumb>
@@ -17,6 +17,10 @@
           <template slot="header">
             <span>{{ s.title }}</span>
             <img src="../assets/icon_filter.png" class="icon_filter" @click="handleSelect(s, k)">
+          </template>
+					<template slot-scope="scope">
+            <span v-if="s.type==='boolean'">{{ scope.row[k] ? '是' : '否' }}</span>
+						<span v-else>{{ scope.row[k] }}</span>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="150">
@@ -55,6 +59,10 @@
           <el-button>导入数据</el-button>
         </el-upload>
         <div><el-button @click="exportDocument">导出数据</el-button></div>
+				<hr/>
+        <el-checkbox-group v-model="removeManyCheckList" class="tmw-checkbox-group">
+          <el-checkbox v-for="(t, k) in plugins.document.transforms.removeMany" :label="t.name" :key="k">{{t.label}}</el-checkbox>
+        </el-checkbox-group>
         <el-dropdown @command="batchRemoveDocument">
           <el-button>批量删除<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           <el-dropdown-menu slot="dropdown">
@@ -64,7 +72,7 @@
           </el-dropdown-menu>
         </el-dropdown>
         <hr/>
-        <el-checkbox-group v-model="moveCheckList">
+        <el-checkbox-group v-model="moveCheckList" class="tmw-checkbox-group">
           <el-checkbox v-for="(t, k) in plugins.document.transforms.move" :label="t.name" :key="k">{{t.label}}</el-checkbox>
         </el-checkbox-group>
         <el-dropdown @command="batchMoveDocument">
@@ -135,7 +143,8 @@ export default {
   data() {
     return {
       tableHeight: 0,
-      moveCheckList: [],
+			moveCheckList: [],
+			removeManyCheckList: [],
       option: "",
       keyword: "",
       feature: "",
@@ -283,7 +292,11 @@ export default {
     listPlugin() {
       apiPlugins.plugin.list().then(plugins => {
 				if (JSON.stringify(plugins) !== "{}") {
-					this.moveCheckList = plugins.document.transforms.move.map(option => option.name)
+					let _self = this
+					Object.entries(plugins.document.transforms).forEach(function ([key, value]){
+						let attrname = key + 'CheckList'
+						_self[attrname] = value.filter(option => option.default==='Y').map(option => option.name)
+					})
 					plugins.document.submits.forEach(submit => {
 						let transforms = plugins.document.transforms[submit.id]
 						submit.checkList = transforms ? transforms.map(item => item.name) : []
@@ -375,14 +388,14 @@ export default {
       }).catch(() => {})
     },
     batchRemoveDocument(command) {
-      let { param } = this.fnSetReqParam(command)
+			let { param, transforms } = this.fnSetReqParam(command, this.removeManyCheckList)
       MessageBox({
         title: '提示',
         message: '确定删除这些数据？',
         confirmButtonText: '确定',
         type: 'warning'
       }).then(() => {
-        apiDoc.batchRemove(this.dbName, this.clName, param).then(result => {
+        apiDoc.batchRemove(this.dbName, this.clName, param, transforms).then(result => {
           Message.success({ message: '已成功删除' + result.n + '条'})
           this.fnHandleResResult(result, true)
         })
@@ -497,20 +510,26 @@ export default {
   }
 }
 </script>
-
-<style lang="less" src="../assets/css/common.less"></style>
-<style scoped>
-.tmw-document .icon-style {
-  margin-left: 10px;
-  cursor: pointer;
+<style lang="less" scoped>
+.tmw-document {
+	.icon-style {
+		margin-left: 10px;
+		cursor: pointer;
+	}
+	.icon-heightlight {
+		color: #409EFF;
+	}
+	.icon_filter {
+		width: 15px;
+		height: 15px;
+		vertical-align: middle;
+		cursor: pointer;
+	}
 }
-.tmw-document .icon-heightlight {
-  color: #409EFF;
-}
-.tmw-document .icon_filter {
-  width: 15px;
-  height: 15px;
-  vertical-align: middle;
-  cursor: pointer;
+.tmw-checkbox-group {
+	label {
+		display: block;
+		margin-top: 2px;
+	}
 }
 </style>

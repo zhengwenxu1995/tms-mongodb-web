@@ -29,6 +29,7 @@
     <template v-slot:right>
       <tms-flex direction="column">
         <div v-if="!failed.length"><el-button @click="moveDocument">开始迁移</el-button></div>
+				<div><el-button @click="exportDocument">导出数据</el-button></div>
       </tms-flex>      
     </template>
   </tms-frame>
@@ -69,6 +70,12 @@ export default {
     }
   },
   methods: {
+		exportDocument() {
+			api.export(this.dbName, this.clName, this.ruleDbName, this.ruleClName).then(result => {
+        const access_token = sessionStorage.getItem('access_token')
+        window.open(`${process.env.VUE_APP_BACK_API_BASE}/download/down?access_token=${access_token}&file=${result}`)
+      })
+		},
     fnGetTelIdsOfEachRule(rule) {
       const telIds = rule.data.map(data => data._id)
       return telIds
@@ -133,5 +140,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" src="../../assets/css/common.less"></style>

@@ -39,9 +39,9 @@ export default {
       .then(rst => rst.data.result)
       .catch(err => Promise.reject(err))
   },
-  batchRemove(dbName, clName, param) {
+  batchRemove(dbName, clName, param, transforms) {
     return TmsAxios.ins('mongodb-api')
-      .post(`${base}/removeMany?db=${dbName}&cl=${clName}`, param)
+      .post(`${base}/removeMany?db=${dbName}&cl=${clName}&transforms=${transforms}`, param)
       .then(rst => rst.data.result)
       .catch(err => Promise.reject(err))
   },
