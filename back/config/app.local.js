@@ -2,16 +2,16 @@ module.exports = {
   name: 'dev-op',
   router: {
     auth: {
-      prefix: '/mgdb/auth' // 接口调用url的前缀
+      prefix: '/pool/auth' // 接口调用url的前缀
     },
     controllers: {
-      prefix: '/mgdb/api' // 接口调用url的前缀，例如：/api
+      prefix: '/pool/api' // 接口调用url的前缀，例如：/api
     },
     api: {
-      prefix: '/mgdb/webApi' // 接口调用url的前缀
+      prefix: '/pool/webApi' // 接口调用url的前缀
     },
     plugins: {
-      prefix: '/mgdb/plugin' // 接口调用url的前缀
+      prefix: '/pool/plugin' // 接口调用url的前缀
     }
   },
   tmsTransaction: false,
