@@ -176,7 +176,7 @@ class DocBase extends Ctrl {
             notRemoveDatas.forEach(nrd => {
               notRemoveDataIds.push(new ObjectId(nrd._id))
             })
-            find["$and"] = [{_id: {$not: {$in: notRemoveDataIds}}}]
+            find["$and"] = [{ _id: { $not: { $in: notRemoveDataIds } } }]
           }
         }
       }
