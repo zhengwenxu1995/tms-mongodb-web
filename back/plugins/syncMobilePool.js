@@ -1,9 +1,9 @@
 const { ResultData, ResultFault } = require('tms-koa')
+const Base = require('./base')
 const MODELCOLL = require('../models/mgdb/collection')
 const moment = require('moment')
 const ObjectId = require('mongodb').ObjectId
 const _ = require('lodash')
-const modelBase = require('../models/mgdb/base')
 const log4js = require('log4js')
 const logger = log4js.getLogger('mongodb-web-syncMobile')
 const request = require('request')
@@ -16,58 +16,12 @@ const { httpApiUrl } = require("../config/plugins")
 const HTTP_SYNCTEL_URL = httpApiUrl.syncMobilePool.syncTle
 const myURL = new URL(HTTP_SYNCTEL_URL)
 
-// http请求
-const API_FIELD_REQUEST = Symbol('request')
-// 发起调用的客户端
-const API_FIELD_CLIENT = Symbol('client')
-// 数据库实例上下文(DbServer)
-const API_FIELD_DB_CTX = Symbol('dbcontext')
-// mongodb实例上下文
-const API_FIELD_MONGO_CLIENT = Symbol('mongoclient')
-//
-const API_FIELD_MONGOOSE = Symbol('mongoose')
-// 
-const API_FIELD_CTX = Symbol('ctx')
-
-class SyncMobilePool {
-  constructor(ctx, client, dbContext, mongoClient, mongoose) {
-    this[API_FIELD_REQUEST] = ctx.request
-    this[API_FIELD_CLIENT] = client
-    this[API_FIELD_DB_CTX] = dbContext
-    this[API_FIELD_MONGO_CLIENT] = mongoClient
-    this[API_FIELD_MONGOOSE] = mongoose
-    this[API_FIELD_CTX] = ctx
-  }
-  get request() {
-    return this[API_FIELD_REQUEST]
-  }
-  get client() {
-    return this[API_FIELD_CLIENT]
-  }
-  get dbContext() {
-    return this[API_FIELD_DB_CTX]
-  }
-  get mongoClient() {
-    return this[API_FIELD_MONGO_CLIENT]
-  }
-  get mongoose() {
-    return this[API_FIELD_MONGOOSE]
-  }
-  get db() {
-    return this.dbContext.db()
-  }
-  get ctx() {
-    return this[API_FIELD_CTX]
-  }
-	/**
-	 * 组装 查询条件
-	 */
-  _assembleFind(filter, like = true) {
-    let model = new modelBase()
-    return model._assembleFind(filter, like)
+class SyncMobilePool extends Base {
+  constructor(...args) {
+    super(...args)
   }
   /**
-   * * @execNum 本次最大迁移数
+   * @execNum 本次最大迁移数
    * @planTotal 总计划迁移数
    * @alreadySyncTotal 已经迁移的个数
    * @alreadySyncPassTotal 已经迁移成功的个数
