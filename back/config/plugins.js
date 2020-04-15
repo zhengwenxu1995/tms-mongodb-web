@@ -1,4 +1,13 @@
 module.exports = {
+    db:{
+        submits:[
+            {
+                id:'allDbSearch',
+                name:"全库搜索",
+                config:{clumn:'tel'}
+            }
+        ]
+    },
     document: {
         transforms: {
             move: [
