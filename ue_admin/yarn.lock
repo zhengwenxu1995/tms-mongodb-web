@@ -4642,9 +4642,9 @@ hex-color-regex@^1.1.0:
   integrity sha1-TAb8y0YC/iYCs8k9+C1+fb8aio4=
 
 highlight.js@^9.6.0:
-  version "9.16.2"
-  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-9.16.2.tgz#68368d039ffe1c6211bcc07e483daf95de3e403e"
-  integrity sha1-aDaNA5/+HGIRvMB+SD2vld4+QD4=
+  version "9.18.5"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.18.5.tgz#d18a359867f378c138d6819edfc2a8acd5f29825"
+  integrity sha512-a5bFyofd/BHCX52/8i8uJkjr9DYwXIPnM/plwI6W7ezItLGqzt7X2G2nXuYSfsIJdkwwj/g9DG1LkcGJI/dDoA==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -9216,18 +9216,20 @@ tmpl@1.0.x:
   resolved "https://registry.npm.taobao.org/tmpl/download/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
   integrity sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE=
 
-tms-vue-ui@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/tms-vue-ui/-/tms-vue-ui-0.0.14.tgz#b13987f75f12b7d2f7c67d7ec4aa4496f0c7c5a6"
-  integrity sha512-r0UP9gOukKXmTmAw2lzyKjRX/B0RaBoVRePUAucRdptCK8lT6khaAigYov+ubUDo1aNfDL7e5vbQFMnU6t09zg==
+tms-vue-ui@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/tms-vue-ui/-/tms-vue-ui-0.0.18.tgz#186083b3b1f4ce4ef8658d57760893052e45b6fd"
+  integrity sha512-BFIgewci4VbchjelF5wlUwESZb5e37I5PWjmFXFmm0Vev/6qlYpnXM1NsSdvaQ7TIjUJNdj1PrC4Y+W0jIjw4w==
   dependencies:
     element-ui "^2.12.0"
+    lodash "^4.17.15"
     vant "^2.2.11"
+    vue-router "^3.1.5"
 
-tms-vue@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/tms-vue/-/tms-vue-0.0.5.tgz#3581c16bef210939710d5d43ce3c81524bc815a4"
-  integrity sha512-2L3X04/erteiJiMeF6dNJ6yu0VfMNeQLUkvENK02DRX6aCM/7hOoLDm0FFzwHUkY7ni3kynrODqAH/5mrKt+Ow==
+tms-vue@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/tms-vue/-/tms-vue-0.0.8.tgz#6ca8008b8a8cc1987bf5083dc3f4de0d9c8cb278"
+  integrity sha512-3MoW0qE8sWcCefxfNvr7iclgWN9lAd3hXI5MaANbVujAZoDE9qeH5DzVsdJe9KvDr4SeK40AsH3sTf5YCVLqXw==
   dependencies:
     axios "^0.19.0"
 
@@ -9681,6 +9683,11 @@ vue-router@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.1.3.tgz#e6b14fabc0c0ee9fda0e2cbbda74b350e28e412b"
   integrity sha1-5rFPq8DA7p/aDiy72nSzUOKOQSs=
+
+vue-router@^3.1.5:
+  version "3.4.9"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.4.9.tgz#c016f42030ae2932f14e4748b39a1d9a0e250e66"
+  integrity sha512-CGAKWN44RqXW06oC+u4mPgHLQQi2t6vLD/JbGRDAXm0YpMv0bgpKuU5bBd7AvMgfTz9kXVRIWKHqRwGEb8xFkA==
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
